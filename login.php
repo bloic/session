@@ -1,4 +1,28 @@
+<?php
+session_start();
+if (!empty($_SESSION['loginname'])) {
+    header('location:index.php');
+}
+
+define('LOGIN', 'toto');
+$errorMessages = [];
+
+if (!empty($_POST)) {
+    if (!empty($_POST['loginname'])) {
+        if ($_POST['loginname'] !== LOGIN) {
+            $errorMessages[] = 'Mauvais login !';
+        }else {
+            $_SESSION['loginname'] = LOGIN;
+            header('location:index.php');
+        }
+    }else {
+        $errorMessages[] = 'Veuillez inscrire votre Nom svp !';
+    }
+}
+?>
+
 <?php require 'inc/head.php'; ?>
+
 <div class="container" style="margin-top:40px">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -6,8 +30,17 @@
                 <div class="panel-heading">
                     <strong> Sign in to continue</strong>
                 </div>
+                <?php
+                if(!empty($errorMessages))
+                {
+                    foreach ($errorMessages as $errorMessage){;?>
+                    <ul>
+                        <li> <?= $errorMessage  ?></li>
+                    </ul>
+                <?php }} ?>
+
                 <div class="panel-body">
-                    <form role="form" action="#" method="POST">
+                    <form role="form" action="" method="POST">
                         <fieldset>
                             <div class="row">
                                 <div class="center-block">

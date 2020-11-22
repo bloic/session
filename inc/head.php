@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,11 +46,18 @@
                             Cart
                         </a>
                     </li>
+                    <li><?php if (!empty($_SESSION['loginname'])){?>
+                        <a href="/logout.php" class="btn pl-1 btn-outline-info">Log Out</a></li>
+                    <?php }else { ?>
+                    <a href="/login.php" class="btn pl-1 btn-outline-info">Login</a></li>
                 </ul>
+                <?php } ?>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid text-right">
-        <strong>Hello Wilder !</strong>
+        <?php if (!empty($_SESSION['loginname'])) { ?>
+        <strong>Hello Wilder <?= $_SESSION['loginname'] ?> !</strong>
+        <?php } ?>
     </div>
 </header>
